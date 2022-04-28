@@ -41,7 +41,7 @@ def ints_to_chars(ints):
     return chars_string
 
 def file_to_matrix(path, m):
-    """Converts binary file to matrix of Base64 byte's integer representations, dimensions m*m*-1"""
+    """Converts binary file to matrix of Base64 byte's integer representations, dimensions (m,m)"""
     with open(path, "rb") as f:
         data1 = f.read()
     
@@ -53,7 +53,8 @@ def file_to_matrix(path, m):
     data3 = b''.join([data2, p*b'='])  # pad
     
     array1 = chars_to_ints(data3.decode('ascii'))
-    array2 = np.reshape(array1, (-1,m,m)) # get array of integers into m*m matrix shape
+    # TODO checks for file size
+    array2 = np.reshape(array1, (m,m)) # get array of integers into m*m matrix shape
 
     print(array2.shape)
     return array2
